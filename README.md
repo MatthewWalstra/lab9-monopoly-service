@@ -1,10 +1,8 @@
-# CS 262 Monopoly Webservice
+# CS 262 Lab9 Monopoly Webservice
 
-This is the data service application for the 
-[CS 262 sample Monopoly project](https://github.com/calvin-cs262-organization/monopoly-project),
  which is deployed here:
           
-- <https://cs262-monopoly-service.herokuapp.com/>
+- <https://cs-262-lab9-monopoly-service.herokuapp.com/>
 
 It is based on the standard Heroku with Node.js tutorial.
 
