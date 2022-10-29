@@ -33,7 +33,7 @@ SELECT *
   FROM Player, PlayerGame, Game
   ;
 
-SELECT (name, email, score)
+SELECT name, email, score
   FROM PlayerGame, Player
   WHERE PlayerGame.playerID = Player.ID
     AND PlayerGame.score > 0

@@ -120,7 +120,7 @@ function deletePlayer(req, res, next) {
 }
 
 function readHighScores(req, res, next) {
-  db.many('SELECT * FROM PlayerGame, Player WHERE PlayerGame.PlayerID = Player.ID AND PlayerGame.score > 0 ORDER BY PlayerGame.score DESC LIMIT 3')
+  db.many('SELECT name, email, score FROM PlayerGame, Player WHERE PlayerGame.PlayerID = Player.ID AND PlayerGame.score > 0 ORDER BY PlayerGame.score DESC LIMIT 3')
     .then(data => {
       returnDataOr404(res, data);
     })
