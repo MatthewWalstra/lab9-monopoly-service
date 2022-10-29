@@ -39,6 +39,7 @@ router.use(express.json());
 router.get("/", readHelloMessage);
 router.get("/players", readPlayers);
 router.get("/players/:id", readPlayer);
+router.get("/highscores", readHighScores);
 router.put("/players/:id", updatePlayer);
 router.post('/players', createPlayer);
 router.delete('/players/:id', deletePlayer);
@@ -116,4 +117,14 @@ function deletePlayer(req, res, next) {
         .catch(err => {
             next(err);
         });
+}
+
+function readHighScores(req, res, next) {
+  db.oneOrNone('SELECT (score, name, email) FROM PlayerGame, Player WHERE PlayerGame.PlayerID = Player.ID AND PlayerGame.score > 0 ORDER BY PlayerGame.score DESC LIMIT 3')
+    .then(data => {
+      returnDataOr404(res, data);
+    })
+    .catch(err => {
+      next(err);
+    });
 }
