@@ -39,7 +39,7 @@ router.use(express.json());
 router.get("/", readHelloMessage);
 router.get("/players", readPlayers);
 router.get("/players/:id", readPlayer);
-router.get("/highscores", readHighScores);
+router.get("/winners", readWinners);
 router.put("/players/:id", updatePlayer);
 router.post('/players', createPlayer);
 router.delete('/players/:id', deletePlayer);
@@ -119,8 +119,8 @@ function deletePlayer(req, res, next) {
         });
 }
 
-function readHighScores(req, res, next) {
-  db.many('SELECT name, email, score FROM PlayerGame, Player WHERE PlayerGame.PlayerID = Player.ID AND PlayerGame.score > 0 ORDER BY PlayerGame.score DESC LIMIT 3')
+function readWinners(req, res, next) {
+  db.many('SELECT DISTINCT ON (PlayerGame.gameID) PlayerGame.gameID, score, email, name FROM PlayerGame, Player WHERE PlayerGame.playerID = Player.ID ORDER BY PlayerGame.gameID DESC, score DESC LIMIT 50; ')
     .then(data => {
       returnDataOr404(res, data);
     })

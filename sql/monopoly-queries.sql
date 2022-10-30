@@ -33,9 +33,10 @@ SELECT *
   FROM Player, PlayerGame, Game
   ;
 
-SELECT name, email, score
-  FROM PlayerGame, Player
-  WHERE PlayerGame.playerID = Player.ID
-    AND PlayerGame.score > 0
-  ORDER BY PlayerGame.score DESC
-  LIMIT 3
+-- https://dba.stackexchange.com/questions/24327/how-to-select-distinct-for-one-column-and-any-in-another-column
+-- Get winners of last 50 games 
+SELECT DISTINCT ON (PlayerGame.gameID) PlayerGame.gameID, score, email, name
+FROM PlayerGame, Player
+WHERE PlayerGame.playerID = Player.ID
+ORDER BY PlayerGame.gameID DESC, score DESC
+LIMIT 50;
